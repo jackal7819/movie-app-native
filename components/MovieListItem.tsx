@@ -1,7 +1,9 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text } from 'react-native';
+import { Link } from 'expo-router';
 
 interface MovieListItemProps {
 	movie: {
+		id: number;
 		title: string;
 		poster_path: string;
 	};
@@ -9,15 +11,19 @@ interface MovieListItemProps {
 
 const MovieListItem: React.FC<MovieListItemProps> = ({ movie }) => {
 	return (
-		<View style={styles.container}>
-			<Image
-				source={{
-					uri: 'https://image.tmdb.org/t/p/w500' + movie.poster_path,
-				}}
-				style={styles.image}
-			/>
-			<Text style={styles.title}>{movie.title}</Text>
-		</View>
+		<Link href={`/${movie.id}`} asChild>
+			<Pressable style={styles.container}>
+				<Image
+					source={{
+						uri:
+							'https://image.tmdb.org/t/p/w500' +
+							movie.poster_path,
+					}}
+					style={styles.image}
+				/>
+				<Text style={styles.title}>{movie.title}</Text>
+			</Pressable>
+		</Link>
 	);
 };
 
