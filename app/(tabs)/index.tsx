@@ -1,7 +1,7 @@
+import MovieListItem from '@/components/MovieListItem';
 import { ActivityIndicator, FlatList, StyleSheet, Text } from 'react-native';
 import { View } from '@/components/Themed';
 import { fetchTopRatedMovies } from '@/api/movies';
-import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 export default function TabOneScreen() {
@@ -9,11 +9,14 @@ export default function TabOneScreen() {
 		data: movies,
 		isPending,
 		error,
-	} = useQuery({ queryKey: ['movies'], queryFn: fetchTopRatedMovies });
+	} = useQuery({
+		queryKey: ['movies'],
+		queryFn: fetchTopRatedMovies,
+	});
 
 	if (isPending) {
 		return (
-			<View style={styles.container}>
+			<View style={styles.loader}>
 				<ActivityIndicator size='large' />
 			</View>
 		);
@@ -21,7 +24,7 @@ export default function TabOneScreen() {
 
 	if (error) {
 		return (
-			<View style={styles.container}>
+			<View style={styles.loader}>
 				<Text>{error.message}</Text>
 			</View>
 		);
@@ -31,7 +34,8 @@ export default function TabOneScreen() {
 		<View style={styles.container}>
 			<FlatList
 				data={movies}
-				renderItem={({ item: { title } }) => <Text>{title}</Text>}
+        numColumns={2}
+				renderItem={({ item }) => <MovieListItem movie={item} />}
 			/>
 		</View>
 	);
@@ -40,7 +44,10 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
 	},
+  loader : {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
