@@ -9,11 +9,11 @@ import {
 import { FontAwesome } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { addMovieToWatchlist, fetchMovie } from '@/api/movies';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const MovieDetails = () => {
 	const { id } = useLocalSearchParams();
-
+	const queryClient = useQueryClient()
 	const {
 		data: movie,
 		isPending,
@@ -23,11 +23,14 @@ const MovieDetails = () => {
 		queryFn: () => fetchMovie(Number(id)),
 	});
 
-	const { mutate: addMovie } = useMutation({
+	const { mutate: addMovie, isPending: isPendingMutation } = useMutation({
 		mutationFn: () => addMovieToWatchlist(Number(id)),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['watchlist'] });
+		},
 	});
 
-	if (isPending) {
+	if (isPending || isPendingMutation) {
 		return (
 			<View style={styles.loader}>
 				<ActivityIndicator size='large' />

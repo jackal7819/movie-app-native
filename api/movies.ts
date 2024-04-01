@@ -7,8 +7,14 @@ const headers = {
 	Authorization: API_KEY,
 };
 
-export const fetchTopRatedMovies = async () => {
-	const url = `${BASE_URL}/popular?language=en-US&page=1`;
+interface FetchPopularMoviesParams {
+	pageParam: number;
+}
+
+export const fetchPopularMovies = async ({
+	pageParam,
+}: FetchPopularMoviesParams) => {
+	const url = `${BASE_URL}/popular?language=en-US&page=${pageParam}`;
 	const options = {
 		method: 'GET',
 		headers,
@@ -40,6 +46,24 @@ export const fetchMovie = async (id: number) => {
 
 	const json = await res.json();
 	return json;
+};
+
+export const fetchWatchlistMovies = async () => {
+	const url = `${ACCOUNT_URL}/20127205/watchlist/movies?language=en-US&page=1&sort_by=created_at.desc`;
+
+	const options = {
+		method: 'GET',
+		headers,
+	};
+
+	const res = await fetch(url, options);
+
+	if (!res.ok) {
+		throw new Error('Failed to fetch the movie');
+	}
+
+	const json = await res.json();
+	return json.results;
 };
 
 export const addMovieToWatchlist = async (movieId: number) => {
