@@ -1,6 +1,6 @@
 # MovieTrack
 
-MovieTrack is a cross-platform mobile application. It allows you to browse information about popular movies, add them to your watchlist.
+MovieTrack is a cross-platform mobile application. It allows you to browse information about popular movies, add them to your watchlist, using data from the popular The Movie Database (TMDb).
 
 ## Features
 
@@ -16,4 +16,4 @@ MovieTrack is built using the following technologies:
 -   ***React Native***: A framework for building native mobile applications using JavaScript and React.
 -   ***Expo***: A platform and tools for developing React Native applications, including navigation.
 -   ***Tanstack Query***: A library for simplifying asynchronous requests and data caching.
--   ***TypeScript***: A strict superset of JavaScript that adds optional static typing, enhancing code maintainability and scalability.
+-   ***TypeScript***: A strict superset of JavaScript that adds optional static typing, enhancing code maintainability.
