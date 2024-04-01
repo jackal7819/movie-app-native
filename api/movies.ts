@@ -10,11 +10,18 @@ export const fetchTopRatedMovies = async () => {
 		},
 	};
 
-	try {
-		const res = await fetch(url, options);
-		const json = await res.json();
-		return json.results;
-	} catch (error) {
-		console.error('error:' + error);
+	// try {
+	// 	const res = await fetch(url, options);
+	// 	const json = await res.json();
+	// 	return json.results;
+	// } catch (error) {
+	// 	console.error('error:' + error);
+	// }
+
+	const res = await fetch(url, options);
+	if (!res.ok) {
+		throw new Error('Failed to fetch data');
 	}
+	const json = await res.json();
+	return json.results;
 };

@@ -6,12 +6,19 @@ import { useEffect, useState } from 'react';
 export default function TabOneScreen() {
 	const [movies, setMovies] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const fetchMovies = async () => {
 			setIsLoading(true);
-			const movies = await fetchTopRatedMovies();
-			setMovies(movies);
+
+      try {
+        const movies = await fetchTopRatedMovies();
+        setMovies(movies);
+      } catch (error) {
+        setError(error);
+      }
+      
 			setIsLoading(false);
 		};
 		fetchMovies();
@@ -21,6 +28,14 @@ export default function TabOneScreen() {
 		return (
 			<View style={styles.loader}>
 				<ActivityIndicator size='large' />
+			</View>
+		);
+	}
+
+  if (error) {
+		return (
+			<View style={styles.loader}>
+				<Text>{error.message}</Text>
 			</View>
 		);
 	}
