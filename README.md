@@ -13,7 +13,7 @@ MovieTrack is a cross-platform mobile application. It allows you to browse infor
 
 MovieTrack is built using the following technologies:
 
--   *React Native*: A framework for building native mobile applications using JavaScript and React.
--   *Expo*: A platform and tools for developing React Native applications, including navigation.
--   *Tanstack Query*: A library for simplifying asynchronous requests and data caching.
--   *TypeScript*: A strict superset of JavaScript that adds optional static typing, enhancing code maintainability and scalability.
+-   **React Native**: A framework for building native mobile applications using JavaScript and React.
+-   **Expo**: A platform and tools for developing React Native applications, including navigation.
+-   **Tanstack Query**: A library for simplifying asynchronous requests and data caching.
+-   **TypeScript**: A strict superset of JavaScript that adds optional static typing, enhancing code maintainability and scalability.
