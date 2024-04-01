@@ -1,4 +1,12 @@
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import {
+	ActivityIndicator,
+	Image,
+	Pressable,
+	StyleSheet,
+	Text,
+	View,
+} from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { fetchMovie } from '@/api/movies';
 import { useQuery } from '@tanstack/react-query';
@@ -43,6 +51,16 @@ const MovieDetails = () => {
 			/>
 			<View style={styles.container}>
 				<Text style={styles.title}>{movie.title}</Text>
+				<View>
+					<Pressable style={styles.button}>
+						<FontAwesome
+							name='bookmark-o'
+							size={24}
+							color='white'
+						/>
+						<Text style={styles.link}>Add to Watchlist</Text>
+					</Pressable>
+				</View>
 				<Text style={styles.text}>
 					<Text style={styles.subtitle}>Description:</Text>{' '}
 					{movie.overview}
@@ -88,6 +106,22 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		marginBottom: 10,
+	},
+	button: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		marginBottom: 10,
+		gap: 10,
+		padding: 10,
+		borderRadius: 10,
+		width: 200,
+		justifyContent: 'center',
+		backgroundColor: '#EAB308',
+		color: 'white',
+	},
+	link: {
+		color: 'white',
+		fontWeight: 'bold',
 	},
 });
 
