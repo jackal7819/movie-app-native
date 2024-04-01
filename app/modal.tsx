@@ -7,7 +7,7 @@ import { Text, View } from '@/components/Themed';
 export default function ModalScreen() {
 	return (
 		<View style={styles.container}>
-			<Stack.Screen options={{ title: 'About' }} />{' '}
+			<Stack.Screen options={{ title: 'About' }} />
 			<Text style={styles.title}>About</Text>
 			<View
 				style={styles.separator}

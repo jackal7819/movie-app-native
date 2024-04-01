@@ -13,7 +13,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const MovieDetails = () => {
 	const { id } = useLocalSearchParams();
-	const queryClient = useQueryClient()
+	const queryClient = useQueryClient();
 	const {
 		data: movie,
 		isPending,
@@ -91,7 +91,6 @@ const MovieDetails = () => {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		padding: 20,
 	},
 	loader: {
@@ -110,9 +109,11 @@ const styles = StyleSheet.create({
 	},
 	subtitle: {
 		fontWeight: 'bold',
+		fontSize: 16,
 	},
 	text: {
 		marginBottom: 10,
+		fontSize: 16,
 	},
 	button: {
 		flexDirection: 'row',

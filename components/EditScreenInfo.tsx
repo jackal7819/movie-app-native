@@ -4,7 +4,6 @@ import { Text, View } from './Themed';
 
 export default function EditScreenInfo() {
 	return (
-		<View>
 			<View style={styles.getStartedContainer}>
 				<Text
 					style={styles.getStartedText}
@@ -25,7 +24,6 @@ export default function EditScreenInfo() {
 					cinema.
 				</Text>
 			</View>
-		</View>
 	);
 }
 
