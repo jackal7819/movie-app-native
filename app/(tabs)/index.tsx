@@ -26,7 +26,7 @@ export default function TabOneScreen() {
 
 	if (isLoading) {
 		return (
-			<View style={styles.loader}>
+			<View style={styles.container}>
 				<ActivityIndicator size='large' />
 			</View>
 		);
@@ -34,8 +34,8 @@ export default function TabOneScreen() {
 
   if (error) {
 		return (
-			<View style={styles.loader}>
-				<Text>{error.message}</Text>
+			<View style={styles.container}>
+				<Text>{error}</Text>
 			</View>
 		);
 	}
@@ -55,10 +55,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	},
-	loader: {
-		flex: 1,
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
+	}
 });
