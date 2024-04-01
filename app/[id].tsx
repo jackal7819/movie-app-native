@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import { fetchMovie } from '@/api/movies';
-import { useQuery } from '@tanstack/react-query';
+import { addMovieToWatchlist, fetchMovie } from '@/api/movies';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const MovieDetails = () => {
 	const { id } = useLocalSearchParams();
@@ -21,6 +21,10 @@ const MovieDetails = () => {
 	} = useQuery({
 		queryKey: ['movies', id],
 		queryFn: () => fetchMovie(Number(id)),
+	});
+
+	const { mutate: addMovie } = useMutation({
+		mutationFn: () => addMovieToWatchlist(Number(id)),
 	});
 
 	if (isPending) {
@@ -52,7 +56,7 @@ const MovieDetails = () => {
 			<View style={styles.container}>
 				<Text style={styles.title}>{movie.title}</Text>
 				<View>
-					<Pressable style={styles.button}>
+					<Pressable onPress={() => addMovie()} style={styles.button}>
 						<FontAwesome
 							name='bookmark-o'
 							size={24}
@@ -75,7 +79,7 @@ const MovieDetails = () => {
 				</Text>
 				<Text style={styles.text}>
 					<Text style={styles.subtitle}>Rating:</Text>{' '}
-					{movie.vote_average}
+					{Math.round(movie.vote_average * 10)} %
 				</Text>
 			</View>
 		</View>

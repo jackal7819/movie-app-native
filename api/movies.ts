@@ -1,4 +1,5 @@
 const BASE_URL = 'https://api.themoviedb.org/3/movie';
+const ACCOUNT_URL = 'https://api.themoviedb.org/3/account';
 const API_KEY =
 	'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZmU1MTY0ODQzNmFhNmM3Yzc2MGQzMzM0MDI3NzZiOSIsInN1YiI6IjY0YWFjZjkzZmE3OGNkMDBjNTFkODM1ZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WfgmStP3EGqz8beWEncdqD78KGtEvXaqe_BQXFfCp20';
 const headers = {
@@ -7,8 +8,7 @@ const headers = {
 };
 
 export const fetchTopRatedMovies = async () => {
-	const url = `${BASE_URL}/top_rated?language=en-US&page=1`;
-
+	const url = `${BASE_URL}/popular?language=en-US&page=1`;
 	const options = {
 		method: 'GET',
 		headers,
@@ -36,6 +36,32 @@ export const fetchMovie = async (id: number) => {
 
 	if (!res.ok) {
 		throw new Error('Failed to fetch the movie');
+	}
+
+	const json = await res.json();
+	return json;
+};
+
+export const addMovieToWatchlist = async (movieId: number) => {
+	const url = `${ACCOUNT_URL}/20127205/watchlist`;
+	const options = {
+		method: 'POST',
+		headers: {
+			accept: 'application/json',
+			'Content-Type': 'application/json',
+			Authorization: API_KEY,
+		},
+		body: JSON.stringify({
+			media_type: 'movie',
+			media_id: movieId,
+			watchlist: true,
+		}),
+	};
+
+	const res = await fetch(url, options);
+
+	if (!res.ok) {
+		throw new Error('Failed to add the movie');
 	}
 
 	const json = await res.json();
