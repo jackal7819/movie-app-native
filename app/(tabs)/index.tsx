@@ -2,29 +2,16 @@ import { ActivityIndicator, FlatList, StyleSheet, Text } from 'react-native';
 import { View } from '@/components/Themed';
 import { fetchTopRatedMovies } from '@/api/movies';
 import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 export default function TabOneScreen() {
-	const [movies, setMovies] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+	const {
+		data: movies,
+		isPending,
+		error,
+	} = useQuery({ queryKey: ['movies'], queryFn: fetchTopRatedMovies });
 
-	useEffect(() => {
-		const fetchMovies = async () => {
-			setIsLoading(true);
-
-      try {
-        const movies = await fetchTopRatedMovies();
-        setMovies(movies);
-      } catch (error) {
-        setError(error);
-      }
-      
-			setIsLoading(false);
-		};
-		fetchMovies();
-	}, []);
-
-	if (isLoading) {
+	if (isPending) {
 		return (
 			<View style={styles.container}>
 				<ActivityIndicator size='large' />
@@ -32,10 +19,10 @@ export default function TabOneScreen() {
 		);
 	}
 
-  if (error) {
+	if (error) {
 		return (
 			<View style={styles.container}>
-				<Text>{error}</Text>
+				<Text>{error.message}</Text>
 			</View>
 		);
 	}
@@ -44,7 +31,7 @@ export default function TabOneScreen() {
 		<View style={styles.container}>
 			<FlatList
 				data={movies}
-				renderItem={({ item }) => <Text>{item.title}</Text>}
+				renderItem={({ item: { title } }) => <Text>{title}</Text>}
 			/>
 		</View>
 	);
@@ -55,5 +42,5 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-	}
+	},
 });
