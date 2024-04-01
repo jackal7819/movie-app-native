@@ -1,5 +1,6 @@
 import MovieListItem from '@/components/MovieListItem';
 import { ActivityIndicator, FlatList, StyleSheet, Text } from 'react-native';
+import { Stack } from 'expo-router';
 import { View } from '@/components/Themed';
 import { fetchPopularMovies } from '@/api/movies';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -32,6 +33,7 @@ export default function TabOneScreen() {
 
 	return (
 		<View style={styles.container}>
+			<Stack.Screen options={{ title: 'Popular Movies' }} />
 			<FlatList
 				data={movies}
 				numColumns={2}
